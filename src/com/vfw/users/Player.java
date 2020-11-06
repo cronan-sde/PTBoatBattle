@@ -1,4 +1,24 @@
 package com.vfw.users;
 
-public interface Player {
+interface Player {
+
+    String name;
+    int boatCount;
+
+    void generateShot();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
