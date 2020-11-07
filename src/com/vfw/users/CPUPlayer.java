@@ -1,21 +1,20 @@
 package com.vfw.users;
 
-public class CPUPlayer implements Player{
+import java.util.HashSet;
+import java.util.Set;
 
-    private String previousShot;
+//TODO: implement CPUPlayer class
+class CPUPlayer extends Player{
 
+    private Set<String> usedLocations = new HashSet<>(); //keep track of all used coordinates for CPU
 
     @Override
-    public void generateShot() {
-
-
+    public String setShips() {
+        return null;
     }
 
-    public String getPreviousShot() {
-        return previousShot;
-    }
-
-    public void setPreviousShot(String previousShot) {
-        this.previousShot = previousShot;
+    @Override
+    public String generateShot() {
+        return null;
     }
 }

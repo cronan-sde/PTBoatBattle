@@ -1,16 +1,15 @@
 package com.vfw.users;
 
-public class HumanPlayer implements Player{
+//TODO: implement HumanPlayer Class
+class HumanPlayer extends Player{
 
-   public static void main(String[] args) {
-
+   @Override
+   public String setShips() {
+      return null;
    }
 
    @Override
-   public void generateShot() {
-
-
+   public String generateShot() {
+      return null;
    }
-
-
 }

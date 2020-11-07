@@ -1,11 +1,9 @@
 package com.vfw.game;
 
-import com.vfw.users.CPUPlayer;
-import com.vfw.users.HumanPlayer;
 
 public class PTBoatBattle {
-    private HumanPlayer human;
-    private CPUPlayer cpuP;
+//    private HumanPlayer human;
+//    private CPUPlayer cpuP;
     private GameBoard board;
     private GameController controller;
     private int num = 5;
