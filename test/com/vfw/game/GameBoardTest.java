@@ -1,8 +1,12 @@
 package com.vfw.game;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -33,11 +37,25 @@ public class GameBoardTest {
     }
 
     @Test
-    public void testGetRowKeyValues_shouldBeProperlyMappedLetterToValue() {
+    public void testGetStringCoords_shouldBeProperlyMappedStringToCoordArray() {
         // A=0, B=1, C=2,.....J=9
-        Map<Character, Integer> letterKeyValue = board.getRowKeyValues();
-        assertEquals(10, letterKeyValue.size());
-        assertEquals(Integer.valueOf(0), letterKeyValue.get('A'));
-        assertEquals(Integer.valueOf(9), letterKeyValue.get('J'));
+        Map<String, GameBoard.Coordinates> letterKeyValue = board.getStringCoords();
+        assertEquals(100, letterKeyValue.size()); //should be 100 mappings A0-J9
+        //Testing lower bound A0 Coordinates
+        assertEquals(0, letterKeyValue.get("A0").x);
+        assertEquals(0, letterKeyValue.get("A0").y);
+
+        //Testing upper bound J9 Coordinates
+        assertEquals(9, letterKeyValue.get("J9").x);
+        assertEquals(9, letterKeyValue.get("J9").y);
+    }
+
+    @Test
+    public void testGetStringCoords_shouldProperlyDisplayKeyAndCoordnateValue_whenVisuallyInspecting() {
+        Map<String, GameBoard.Coordinates> letterKeyValue = board.getStringCoords();
+
+        for (String key : letterKeyValue.keySet()) {
+            System.out.println("Key:" + key + ", Coordinates: " + letterKeyValue.get(key));
+        }
     }
 }

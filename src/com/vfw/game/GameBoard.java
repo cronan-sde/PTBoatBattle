@@ -3,6 +3,7 @@ package com.vfw.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -12,17 +13,17 @@ class GameBoard {
     private char[][] board; // 2D game board
     private static final int SIZE = 10; // dimension of game board
     // list of row identifiers
-    private static final List<Character> CHAR_KEYS = new ArrayList<>(
+    private static final List<Character> ROW_IDENTIFIERS = new ArrayList<>(
             Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'));
 
     // holds row identifier and its associated value for easy lookup in the 2D board array
-    private Map<Character, Integer> rowKeyValues = new TreeMap<>();
+    private final Map<String, Coordinates> stringCoords = new TreeMap<>();
 
 
     //ctor to initialize board
     public GameBoard() {
         board = new char[SIZE][SIZE];
-        setRowKeyValues();
+        setStringCoords();
     }
 
     // Methods to print and update board
@@ -32,7 +33,7 @@ class GameBoard {
     public void printBoard() {
         System.out.println("        0      1      2      3      4      5      6      7      8      9");
         for (int i = 0; i < board.length; i++) {
-            System.out.print(CHAR_KEYS.get(i));
+            System.out.print(ROW_IDENTIFIERS.get(i));
             System.out.print('|');
             for (int j = 0; j < board[i].length; j++) {
                 // checking for ships, hits, and misses to update
@@ -57,16 +58,39 @@ class GameBoard {
         return board;
     }
 
-    public Map<Character, Integer> getRowKeyValues() {
-        return Collections.unmodifiableMap(rowKeyValues);
+    public Map<String, Coordinates> getStringCoords() {
+        return Collections.unmodifiableMap(stringCoords);
     }
 
-    private void setRowKeyValues() {
-        int value = 0;
+    private void setStringCoords() {
+        StringBuilder sb = new StringBuilder();
 
-        for (Character key : CHAR_KEYS) {
-            rowKeyValues.put(key, value);
-            value++;
+        for (int i = 0; i < SIZE; i++) {
+            sb.append(ROW_IDENTIFIERS.get(i));
+            for (int j = 0; j < SIZE; j++) {
+                sb.append(j);
+                stringCoords.put(sb.toString(), new Coordinates(i, j));
+                sb.deleteCharAt(1);
+            }
+            sb.delete(0, sb.length());
+        }
+    }
+
+    /*
+     * Inner class to help map String keys "A0"-"J9" to an x,y coordinate value
+     */
+    class Coordinates {
+        int x;
+        int y;
+
+        Coordinates(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + x + ", " + y + "]";
         }
     }
 
