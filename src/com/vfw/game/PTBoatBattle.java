@@ -78,7 +78,7 @@ public class PTBoatBattle {
         char letter = ' ';
 
         for (int i = 0; i < num; i++) {
-            char c = (char) ('A' + rnd.nextInt(num));
+            char c = (char) ('A' + rnd.nextInt(10));
             letter = c;
         }
         return letter;
