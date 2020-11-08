@@ -4,6 +4,15 @@ public abstract class Player {
     private String name; // Humans will have a name, CPU will always be named CPU
     private int boatCount = 5; // default count of ships will be 5 each player
 
+    public Player() {
+
+    }
+
+    // ctor for use by HumanPlayer
+    public Player(String name) {
+        this.name = name;
+    }
+
     /*
      * Each player will set their ship locations, implementation
      * differs between Human and CPUPlayer
