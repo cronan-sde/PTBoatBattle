@@ -10,7 +10,7 @@ public class PTBoatBattle {
 
     private GameBoard board;
     private GameController controller;
-    private int num = 10;
+    private int num = 5;
     public char[][] cpuPosition = new char[num][num];
     public char[][] playerPosition = new char[num][num];
 
