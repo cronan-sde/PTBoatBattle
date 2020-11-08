@@ -1,5 +1,8 @@
 package com.vfw.game;
 
+import com.vfw.users.HumanPlayer;
+import com.vfw.users.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +15,7 @@ public class SayHello extends JFrame {
     private JTextField nameField = new JTextField(15);
     private JButton ok = new JButton("OK");
     private JLabel messageLabel = new JLabel();
+    private Player humanPlayer;
 
     public SayHello(){
         super("Hello New Player");
@@ -40,7 +44,7 @@ public class SayHello extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(nameField != null){
                 // TODO uncomment out after merging with package that has below attribute in it
-              // HumanPlayer.setName(nameField.getText());
+               humanPlayer.setName(nameField.getText());
                 messageLabel.setText("Welcome  " + nameField.getText());
             } else {
                 messageLabel.setText("Sorry I didn't get that, you will just be HumanPlayer");

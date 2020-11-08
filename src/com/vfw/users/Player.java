@@ -8,6 +8,7 @@ public abstract class Player {
 
     }
 
+
     // ctor for use by HumanPlayer
     public Player(String name) {
         this.name = name;
@@ -26,5 +27,15 @@ public abstract class Player {
      * String will be returned in form of A0, B3, J9 etc.
      */
     public abstract String generateShot();
+
+
+    // GETTERS & SETTERS
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }
