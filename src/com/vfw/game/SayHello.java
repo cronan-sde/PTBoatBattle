@@ -1,7 +1,5 @@
 package com.vfw.game;
 
-import com.vfw.users.HumanPlayer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
