@@ -1,6 +1,7 @@
 package com.vfw.users;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Player {
     private String name; // Humans will have a name, CPU will always be named CPU
@@ -41,5 +42,5 @@ public abstract class Player {
     }
 
 
-    public abstract void setPlayerPosition(ArrayList<String> cpuPosition);
+    public abstract void setPlayerPosition(List<String> cpuPosition);
 }
