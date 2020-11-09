@@ -1,7 +1,63 @@
 package com.vfw.game;
 
 
+import com.vfw.users.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 class GameController {
+
+    public List<String> cpuPosition = new ArrayList<>();
+    public List<String> playerPosition = new ArrayList<>();
+    private int shipCount = 5; // ship count
+    public Player player;
+
+
+
+    public void getCpuPosition(){
+
+        int shipCount1 =1;
+        while(shipCount1 <= shipCount){
+            char cpuX;
+            char cpuY;
+            String positionC;
+            char a = randomLetter();
+            int b = randomNumber();
+            cpuX = a;
+            cpuY = (char)b;
+
+            positionC=String.valueOf(String.valueOf(cpuX) + String.valueOf(cpuY));
+            if(!playerPosition.contains(positionC)){
+                cpuPosition.add(positionC);
+                shipCount1++;
+            }
+        System.out.println(positionC);
+        }
+    }
+
+    public  char  randomLetter() {
+        char letter = ' ';
+        Random rnd = new Random();
+        for (int i = 0; i < shipCount; i++) {
+            char c = (char) ('A' + rnd.nextInt(10));
+            letter = c;
+        }
+
+        return letter;
+    }
+
+    public  char randomNumber() {
+        char number = ' ';
+        Random rnd = new Random();
+        for (int i = 0; i < shipCount; i++) {
+            char n = (char) ('0' + rnd.nextInt(10));
+            number = n;
+        }
+
+        return number;
+    }
 
     //TODO: implement
     // NOTE: this is just a rough sample to get us started and is in no way the final product

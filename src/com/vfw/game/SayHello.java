@@ -44,7 +44,8 @@ public class SayHello extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(nameField != null){
                 // TODO uncomment out after merging with package that has below attribute in it
-               humanPlayer.setName(nameField.getText());
+                humanPlayer = new HumanPlayer(nameField.getText());
+             //  humanPlayer.setName(nameField.getText());
                 messageLabel.setText("Welcome  " + nameField.getText());
             } else {
                 messageLabel.setText("Sorry I didn't get that, you will just be HumanPlayer");

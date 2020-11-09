@@ -2,28 +2,34 @@ package com.vfw.game;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.lang.reflect.Array;
+
 import static org.junit.Assert.*;
 
 public class PTBoatBattleTest {
-    private PTBoatBattle ptbB;
+    private PTBoatBattle ptbB = new PTBoatBattle();
 
-//    @Before
-//    public void setUp(){
-//       // PTBoatBattle ptbBattle = new PTBoatBattle();
-//    }
+    @Before
+    public void setUp(){
+        PTBoatBattle ptbBattle = new PTBoatBattle();
+    }
     @Test
     public void testRandomNumbers(){
      // ensure not null & print to ensure good results
-       PTBoatBattle ptbBattle = new PTBoatBattle();
-        assertNotNull(ptbBattle.randomNumber());
+      //  assertNotNull(ptbB.randomNumber());
+        char[] numbs = new char[]{'0','1','2','3','4','5','6','7','8','9'};
+
 
 
     }
-//    @Test
-//    public void test_randomLeters(){
-//        // ensure not null & print to ensure good results
-//
-//    }
+    @Test
+    public void test_randomLetters(){
+        // ensure not null & print to ensure good results
+       // assertNotNull(ptbB.randomLetter());
+        char[] letters = new char[]{'A','B','C','D','E','F','G','H','I','J'};
+
+    }
 //
 //    @Test
 //    public void test_getPlayersPositions(){

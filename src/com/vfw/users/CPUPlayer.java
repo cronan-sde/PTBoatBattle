@@ -2,10 +2,15 @@ package com.vfw.users;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 //TODO: implement CPUPlayer class
-class CPUPlayer extends Player{
+public class CPUPlayer extends Player{
+
+    public CPUPlayer(){
+
+    }
     private ArrayList<String> playerPosition;
 
     private ArrayList<String> getPlayerPosition() {
@@ -25,7 +30,7 @@ class CPUPlayer extends Player{
     }
 
     @Override
-    public void setPlayerPosition(ArrayList<String> cpuPosition) {
+    public void setPlayerPosition(List<String> cpuPosition) {
 
     }
 
