@@ -1,5 +1,7 @@
 package com.vfw.users;
 
+import java.util.ArrayList;
+
 public abstract class Player {
     private String name; // Humans will have a name, CPU will always be named CPU
     private int boatCount = 5; // default count of ships will be 5 each player
@@ -38,4 +40,6 @@ public abstract class Player {
         this.name = name;
     }
 
+
+    public abstract void setPlayerPosition(ArrayList<String> cpuPosition);
 }

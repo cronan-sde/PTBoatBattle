@@ -1,10 +1,20 @@
 package com.vfw.users;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //TODO: implement HumanPlayer Class
 public class HumanPlayer extends Player{
    private Scanner scan = new Scanner(System.in);
+   private ArrayList<String> playerPosition;
+
+   public ArrayList<String> getHumanPlayerPosition() {
+      return playerPosition;
+   }
+
+   public void playerPosition(ArrayList<String> humanPlayerPosition) {
+      this.playerPosition = playerPosition;
+   }
 
    public HumanPlayer(String name) {
       super(name);
@@ -47,6 +57,11 @@ public class HumanPlayer extends Player{
          }
       }
       return location;
+   }
+
+   @Override
+   public void setPlayerPosition(ArrayList<String> cpuPosition) {
+      this.playerPosition = playerPosition;
    }
 
    // returns message that user entered location in an invalid form
