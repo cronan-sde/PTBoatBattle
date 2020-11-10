@@ -36,6 +36,7 @@ public class PTBoatBattle {
         showBoard();
         TimeUnit.SECONDS.sleep(5);
         // tell instructions
+
         controller = new GameController(board, human, cpu);
         playGame();
     }
@@ -45,12 +46,21 @@ public class PTBoatBattle {
 
         getPlayersPositions();
         showBoard();
-        // do some logic
-        // interact with player to place shots
-        // call controller to verify if valid shot
-        // call controller to get cpu shot
-        // wash rinse repeat
+        battle();
 
+
+    }
+
+    private void battle() {
+        String cpu = "cpu";
+        String human = "human";
+        while (!controller.gameOver()) {
+            System.out.println("Take a shot by providing the coordinates as you did to place your boats: A-J & 0-9");
+            String shot = sc.nextLine().toUpperCase();
+            System.out.println(controller.takeTurns(shot, human));
+            // note call show board a& set a time out before calling cpu shot
+            controller.cpuTakeShot();
+        }
     }
 
 
