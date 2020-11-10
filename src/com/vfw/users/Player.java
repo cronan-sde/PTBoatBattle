@@ -1,35 +1,21 @@
 package com.vfw.users;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
     private String name; // Humans will have a name, CPU will always be named CPU
-    private int boatCount = 5; // default count of ships will be 5 each player
+    private final int boatCount = 5; // default count of ships will be 5 each player
+    private List<String> playerPosition;
 
+    //ctor for CPUPlayer
     public Player() {
-
+        this.name = "CPU";
     }
-
 
     // ctor for use by HumanPlayer
     public Player(String name) {
         this.name = name;
     }
-
-    /*
-     * Each player will set their ship locations, implementation
-     * differs between Human and CPUPlayer
-     * String will be returned in form of A0,B3,J9 etc.
-     */
-    public abstract String setShips();
-
-    /*
-     * Each player will choose a location to shoot at, implementation
-     * differs between Human and CPUPlayer
-     * String will be returned in form of A0, B3, J9 etc.
-     */
-    public abstract String generateShot();
 
 
     // GETTERS & SETTERS
@@ -41,6 +27,15 @@ public abstract class Player {
         this.name = name;
     }
 
+    public List<String> getShips() {
+        return playerPosition;
+    }
 
-    public abstract void setPlayerPosition(List<String> cpuPosition);
+    /*
+     * Takes a list of String representing player ships locations
+     * on the game board
+     */
+    public void setShips(List<String> playerPosition) {
+        this.playerPosition = playerPosition;
+    }
 }
