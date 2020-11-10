@@ -1,11 +1,13 @@
 package com.vfw.users;
 
+
 import java.util.List;
 
+
 public abstract class Player {
-    private String name; // Humans will have a name, CPU will always be named CPU
-    private final int boatCount = 5; // default count of ships will be 5 each player
-    private List<String> playerPosition;
+    private String name;
+    public static final int BOAT_COUNT = 5; // Ships will be 5 each player
+    private List<String> playerPosition; //list of players ships positions
 
     //ctor for CPUPlayer
     public Player() {
@@ -38,4 +40,6 @@ public abstract class Player {
     public void setShips(List<String> playerPosition) {
         this.playerPosition = playerPosition;
     }
+
+
 }

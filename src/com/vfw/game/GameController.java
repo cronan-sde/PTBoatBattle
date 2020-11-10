@@ -1,38 +1,48 @@
 package com.vfw.game;
 
-
 import com.vfw.users.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 class GameController {
 
-    public List<String> cpuPosition = new ArrayList<>();
-    public List<String> playerPosition = new ArrayList<>();
-    private int shipCount = 5; // ship count
-    public Player player;
+    //TESTING PURPOSES
+    private GameBoard board;
+    private Player human;
+    private Player cpu;
+    private int shipCount = Player.BOAT_COUNT; // ship count
+
+    public GameController(GameBoard board, Player human, Player cpu) {
+        this.board = board;
+        this.human = human;
+        this.cpu = cpu;
+    }
+
 
     public void getCpuPosition(){
+        List<String> cpuPosition = new ArrayList<>(5);
 
-        int shipCount1 =1;
-        while(shipCount1 <= shipCount){
-            char cpuX;
-            char cpuY;
-            String positionC;
-            char a = randomLetter();
-            int b = randomNumber();
-            cpuX = a;
-            cpuY = (char)b;
+        int curShipCount =1;
+        while(curShipCount <= shipCount){
+            char cpuX = randomLetter();
+            char cpuY = randomNumber();
+            String positionC = String.valueOf(cpuX) + cpuY;
 
-            positionC=String.valueOf(String.valueOf(cpuX) + String.valueOf(cpuY));
-            if(!playerPosition.contains(positionC)){
+            if(!human.getShips().contains(positionC)){
                 cpuPosition.add(positionC);
-                shipCount1++;
+                updateGameBoard(positionC, 'c'); //TODO:figure out how to get this from player class
+                curShipCount++;
             }
-        //System.out.println(positionC);  for testing purposes commented out to not show player computers positions
         }
+        cpu.setShips(cpuPosition); // update cpu position field
+    }
+
+    //TESTING PURPOSE
+    public void updateGameBoard(String position, char symbol) {
+        int x = board.getStringCoords().get(position).x;
+        int y = board.getStringCoords().get(position).y;
+        board.updateBoard(x, y, symbol);
     }
 
     public  char  randomLetter() {
@@ -45,7 +55,7 @@ class GameController {
         return letter;
     }
 
-    public  char randomNumber() {
+    public char randomNumber() {
         char number = ' ';
         Random rnd = new Random();
         for (int i = 0; i < shipCount; i++) {
