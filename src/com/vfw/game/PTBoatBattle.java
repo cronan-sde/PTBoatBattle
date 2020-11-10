@@ -5,6 +5,7 @@ import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class PTBoatBattle {
 
@@ -27,14 +28,22 @@ public class PTBoatBattle {
     public PTBoatBattle() {
     }
 
-    public void initializeGame() {
-       new SayHello(); // calls popup that welcomes & gets user name
+    public void initializeGame() throws InterruptedException {
+      // new SayHello(); // calls popup that welcomes & gets user name
+        System.out.println("Welcome to PT Boat Battle ");
+        System.out.println("You and the computer will be given 5 boats to place on the board");
+        System.out.println("This is followed by taking shots at each other to sink the others boats");
+        System.out.println("Winner is decided when the Victor sinks all the opponents boats");
+        System.out.println("Here is what the board looks like");
+        board.printBoard();
+        TimeUnit.SECONDS.sleep(5);
         // tell instructions
         playGame();
         gC = new GameController();
     }
     public void playGame(){
         // go to getPlayerPositions
+
         getPlayersPositions();
 
         // do some logic
@@ -47,6 +56,7 @@ public class PTBoatBattle {
 
     public void getPlayersPositions() {
 
+        System.out.println("\n\n");
         System.out.println("Positions need to be entered in the 'X' 'Y' coordinate system formula");
         System.out.println("Please do not use extra spaces or characters.");
         System.out.println("A valid example is like this :  a3   or   A6 ");

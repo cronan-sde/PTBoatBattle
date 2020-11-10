@@ -14,8 +14,6 @@ class GameController {
     private int shipCount = 5; // ship count
     public Player player;
 
-
-
     public void getCpuPosition(){
 
         int shipCount1 =1;
@@ -44,7 +42,6 @@ class GameController {
             char c = (char) ('A' + rnd.nextInt(10));
             letter = c;
         }
-
         return letter;
     }
 
@@ -55,7 +52,6 @@ class GameController {
             char n = (char) ('0' + rnd.nextInt(10));
             number = n;
         }
-
         return number;
     }
 
