@@ -69,19 +69,23 @@ class GameController {
     // NOTE: this is just a rough sample to get us started and is in no way the final product
     // or even the direction we need to go, just ideas we can talk about and change anything we want
     // to fit our needs
-    public String takeTurns() {
-        String winnerName = null;
+    public String takeTurns(String shot, String player) {
+       // String winnerName = null;
         //e.g. usage
-        if (isValidShot("A1")) {
+        String something;
+        if (isValidShot(shot)) {
+
             // if is valid shot, check hit
             if (isHit("A1")) {
-                //check for win
-                if (isWin()) {
-                    winnerName = determineWinner();
+
+                something ="HIT ";
+                gameOver(); // checks for win
+                if(player.equals("human")) {
+                    updateGameBoard(shot, '!');
+                } else if( player.equals("cpu")){
+                    updateGameBoard(shot, 'X');
                 }
-                else {
-                    // no winner yet, but player has lost a ship
-                }
+                gameOver();
             }
             else {
                 // no hit, continue playing
@@ -90,7 +94,7 @@ class GameController {
         else {
             //not a valid shot, re-enter a new shot
         }
-        return winnerName;
+        return something =" ";
     }
 
     //TODO: implement
@@ -109,15 +113,23 @@ class GameController {
     // and whose ship was sunk
     // Call isWin() if there is a hit to see if it was last ship to be sunk
     public boolean isHit(String shot) {
-       return false; //placeholder
+        boolean result = false;
+        if(shot.equals(cpu.getShips()) || shot.equals(human.getShips())){
+            result = true;
+        }
+        return result;
     }
 
     //TODO: implement
     // check if either player has 0 ships left
     // return true if a player has 0 ships
     // return false if both players still have ships
-    public boolean isWin() {
-        return false; //placeholder
+    public boolean gameOver() {
+        boolean result = false;
+        if(human.getShips().size() ==0 || cpu.getShips().size()==0){
+            result = true;
+        }
+        return result; //placeholder
     }
 
     //TODO: implement
@@ -125,5 +137,19 @@ class GameController {
     public String determineWinner() {
         String playerName = "name";
         return playerName;
+    }
+
+    public void cpuTakeShot() {
+
+        char cpuA = randomLetter();
+        char cpuB = randomNumber();
+        String positionC = String.valueOf(cpuA) + cpuB;
+
+        if(!cpu.getShips().contains(positionC)){
+         //   cpuShot.add(positionC);
+            updateGameBoard(positionC, 'c'); //TODO:figure out how to get this from player class
+
+        }
+
     }
 }
