@@ -33,7 +33,7 @@ class GameController {
                 cpuPosition.add(positionC);
                 shipCount1++;
             }
-        System.out.println(positionC);
+        //System.out.println(positionC);  for testing purposes commented out to not show player computers positions
         }
     }
 
