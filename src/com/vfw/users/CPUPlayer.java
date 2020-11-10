@@ -1,19 +1,31 @@
 package com.vfw.users;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 
 //TODO: implement CPUPlayer class
 public class CPUPlayer extends Player{
-    private List<String> usedCoordinates; //keep track of all used coordinates for CPU
-    private char shipSymbol = 'c';
-    private char hitSymbol = 'X';
+    private List<String> usedLocations; //keep track of all used coordinates for CPU
+    private static final char SHIP_SYMBOL = 'c';
+    private static final char HIT_SYMBOL = 'X';
 
     public CPUPlayer() {
 
     }
 
+    @Override
+    public char getShipSymbol() {
+        return SHIP_SYMBOL;
+    }
 
+    @Override
+    public char getHitSymbol() {
+        return HIT_SYMBOL;
+    }
+
+    @Override
+    public char getMissSymbol() {
+        return Character.MIN_VALUE;
+    }
 }
