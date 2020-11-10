@@ -15,7 +15,7 @@ public class SayHello extends JFrame {
     private JTextField nameField = new JTextField(15);
     private JButton ok = new JButton("OK");
     private JLabel messageLabel = new JLabel();
-    private Player humanPlayer;
+    private Player player;
 
     public SayHello(){
         super("Hello New Player");
@@ -44,8 +44,8 @@ public class SayHello extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(nameField != null){
                 // TODO uncomment out after merging with package that has below attribute in it
-                humanPlayer = new HumanPlayer(nameField.getText());
-             //  humanPlayer.setName(nameField.getText());
+                player = new HumanPlayer(nameField.getText());
+                player.setName(nameField.getText());
                 messageLabel.setText("Welcome  " + nameField.getText());
             } else {
                 messageLabel.setText("Sorry I didn't get that, you will just be HumanPlayer");
