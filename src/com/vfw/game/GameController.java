@@ -1,6 +1,9 @@
 package com.vfw.game;
 
+import com.vfw.users.CPUPlayer;
+import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,16 +23,16 @@ class GameController {
     }
 
 
-    public void getCpuPosition(){
+    public void getCpuPosition() {
         List<String> cpuPosition = new ArrayList<>(5);
 
-        int curShipCount =1;
-        while(curShipCount <= shipCount){
+        int curShipCount = 1;
+        while (curShipCount <= shipCount) {
             char cpuX = randomLetter();
             char cpuY = randomNumber();
             String positionC = String.valueOf(cpuX) + cpuY;
 
-            if(!human.getShips().contains(positionC) && !cpuPosition.contains(positionC)){
+            if (!human.getShips().contains(positionC) && !cpuPosition.contains(positionC)) {
                 cpuPosition.add(positionC);
                 updateGameBoard(positionC, 'c'); //TODO:figure out how to get this from player class
                 curShipCount++;
@@ -45,7 +48,7 @@ class GameController {
         board.updateBoard(x, y, symbol);
     }
 
-    public  char  randomLetter() {
+    public char randomLetter() {
         char letter = ' ';
         Random rnd = new Random();
         for (int i = 0; i < shipCount; i++) {
@@ -65,68 +68,57 @@ class GameController {
         return number;
     }
 
-    //TODO: implement
-    // NOTE: this is just a rough sample to get us started and is in no way the final product
-    // or even the direction we need to go, just ideas we can talk about and change anything we want
-    // to fit our needs
-    public String takeTurns(String shot, String player) {
-       // String winnerName = null;
+
+    public String takeTurns(String shot, Player player) {
+        // String winnerName = null;
         //e.g. usage
         String something;
-        if (isValidShot(shot)) {
+        if (isValidShot(shot, player)) {
 
             // if is valid shot, check hit
-            if (isHit("A1")) {
+            if (isHit(shot,player)) {
 
-                something ="HIT ";
-                gameOver(); // checks for win
-                if(player.equals("human")) {
-                    updateGameBoard(shot, '!');
-                } else if( player.equals("cpu")){
-                    updateGameBoard(shot, 'X');
-                }
+                something = "HIT !!  Good Job";
+                updateGameBoard(shot, player.getHitSymbol());
                 gameOver();
+            } else {
+                something = "MISS !!";
+                updateGameBoard(shot, player.getMissSymbol());
             }
-            else {
-                // no hit, continue playing
-            }
+        } else {
+            something = "NOT A VALID SHOT :  OUCH MISSED TURN";
         }
-        else {
-            //not a valid shot, re-enter a new shot
-        }
-        return something =" ";
+
+        return something;
     }
 
-    //TODO: implement
-    // Takes in a shot, checks if the shot is a valid location within the game board
-    // returns boolean and takes String in form of "A1"-"J9"
-    // If valid shot, pass it off to isHit() to check for hits
-    public boolean isValidShot(String shot) {
-        return false; //placeholder for now
+    public boolean isValidShot(String shot, Player player) {
+        boolean isValid = false;
+        if(!player.getShips().contains(shot) && board.getStringCoords().containsKey(shot)){
+            isValid = true;
+        }
+
+        return isValid; //placeholder for now
     }
 
-    //TODO: implement
-    // Takes in a shot, checks if the shot was a hit or miss
-    // returns true if a hit, false if miss
-    // Should also update the game board with either a '!' for sunk cpu ship
-    // or 'X' for sunk player ship or 'M' if miss, need to account for who fired shot
-    // and whose ship was sunk
-    // Call isWin() if there is a hit to see if it was last ship to be sunk
-    public boolean isHit(String shot) {
+    public boolean isHit(String shot, Player player) {
         boolean result = false;
-        if(shot.equals(cpu.getShips()) || shot.equals(human.getShips())){
+        if (cpu.getShips().contains(shot) || human.getShips().contains(shot)) {
+            if(player instanceof CPUPlayer){
+                human.getShips().remove(shot);
+            }
+            if (player instanceof HumanPlayer) {
+                cpu.getShips().remove(shot);
+            }
             result = true;
         }
         return result;
     }
 
-    //TODO: implement
-    // check if either player has 0 ships left
-    // return true if a player has 0 ships
-    // return false if both players still have ships
+
     public boolean gameOver() {
         boolean result = false;
-        if(human.getShips().size() ==0 || cpu.getShips().size()==0){
+        if (human.getShips().size() == 0 || cpu.getShips().size() == 0) {
             result = true;
         }
         return result; //placeholder
@@ -135,21 +127,27 @@ class GameController {
     //TODO: implement
     // determine which player has ships left and return their name
     public String determineWinner() {
-        String playerName = "name";
-        return playerName;
+        String winner = " ";
+        if(human.getShips().size() ==0){
+            winner = cpu.getName();
+        } else {
+            winner = human.getName();
+        }
+        return winner;
     }
 
-    public void cpuTakeShot() {
+    public String cpuTakeShot() {
+        String positionC =" ";
+        boolean isGood = false;
 
-        char cpuA = randomLetter();
-        char cpuB = randomNumber();
-        String positionC = String.valueOf(cpuA) + cpuB;
-
-        if(!cpu.getShips().contains(positionC)){
-         //   cpuShot.add(positionC);
-            updateGameBoard(positionC, 'c'); //TODO:figure out how to get this from player class
-
-        }
-
+            while(!isGood ){
+                char cpuA = randomLetter();
+                char cpuB = randomNumber();
+                positionC = String.valueOf(cpuA) + cpuB;
+                if( !cpu.getShips().contains(positionC) ){ // TODO also check in CPUplayer usedLocations
+                  isGood= true;
+                }
+            }
+        return positionC;
     }
 }

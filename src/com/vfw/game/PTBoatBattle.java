@@ -3,6 +3,7 @@ package com.vfw.game;
 import com.vfw.users.CPUPlayer;
 import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +42,7 @@ public class PTBoatBattle {
         playGame();
     }
 
-    public void playGame() {
+    public void playGame() throws InterruptedException {
         // go to getPlayerPositions
 
         getPlayersPositions();
@@ -51,16 +52,38 @@ public class PTBoatBattle {
 
     }
 
-    private void battle() {
-        String cpu = "cpu";
-        String human = "human";
+    private void battle() throws InterruptedException {
+
         while (!controller.gameOver()) {
-            System.out.println("Take a shot by providing the coordinates as you did to place your boats: A-J & 0-9");
-            String shot = sc.nextLine().toUpperCase();
-            System.out.println(controller.takeTurns(shot, human));
-            // note call show board a& set a time out before calling cpu shot
-            controller.cpuTakeShot();
+
+            System.out.println(controller.takeTurns(getPlayerShot(), human));
+            doIt();
+
+            controller.takeTurns(controller.cpuTakeShot(),cpu) ;
+           doIt();
+
+        System.out.println(Arrays.toString(cpu.getShips().toArray()));
         }
+        String winner =" ";
+        System.out.println( winner = controller.determineWinner());
+    }
+    private String getPlayerShot(){
+        String pS =" ";
+        boolean isV = false;
+        while(!isV) {
+            System.out.println("Take a shot by providing the coordinates as you did to place your boats: A-J & 0-9");
+             pS = sc.nextLine().toUpperCase();
+            if(controller.isValidShot(pS, human)){
+                isV= true;
+            } else {
+                System.out.println("YOU WANT A DARWIN AWARD? YOU ALMOST SUNK YOUR OWN SHIP ");
+            }
+        }
+        return pS;
+    }
+    private void doIt() throws InterruptedException {
+        showBoard();
+        TimeUnit.SECONDS.sleep(3);
     }
 
 
@@ -79,8 +102,7 @@ public class PTBoatBattle {
                     playerPosition.add(position);
                     controller.updateGameBoard(position, '@'); //TODO:find a way to get from player class
                     curShipCount++;
-                }
-                else {
+                } else {
                     System.out.println("You've already placed a ship there. Try again");
                 }
 
