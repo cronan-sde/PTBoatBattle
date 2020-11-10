@@ -1,8 +1,6 @@
 package com.vfw.users;
 
-
 import java.util.List;
-
 
 public abstract class Player {
     private String name;
@@ -19,8 +17,13 @@ public abstract class Player {
         this.name = name;
     }
 
+    /*
+     * Symbols represented on the game board, differ between HumanPlayer and CPUPlayer
+     */
+    public abstract char getShipSymbol();
+    public abstract char getHitSymbol();
+    public abstract char getMissSymbol();
 
-    // GETTERS & SETTERS
     public String getName() {
         return name;
     }
@@ -40,6 +43,4 @@ public abstract class Player {
     public void setShips(List<String> playerPosition) {
         this.playerPosition = playerPosition;
     }
-
-
 }
