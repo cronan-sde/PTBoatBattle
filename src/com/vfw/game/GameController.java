@@ -29,7 +29,7 @@ class GameController {
             char cpuY = randomNumber();
             String positionC = String.valueOf(cpuX) + cpuY;
 
-            if(!human.getShips().contains(positionC)){
+            if(!human.getShips().contains(positionC) && !cpuPosition.contains(positionC)){
                 cpuPosition.add(positionC);
                 updateGameBoard(positionC, 'c'); //TODO:figure out how to get this from player class
                 curShipCount++;

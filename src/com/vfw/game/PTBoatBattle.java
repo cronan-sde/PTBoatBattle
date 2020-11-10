@@ -65,9 +65,15 @@ public class PTBoatBattle {
             String position = sc.nextLine().toUpperCase();
 
             if (board.getStringCoords().containsKey(position)) { //validating location in game board
-                playerPosition.add(position);
-                controller.updateGameBoard(position, '@'); //TODO:find a way to get from player class
-                curShipCount++;
+                if (!playerPosition.contains(position)) {
+                    playerPosition.add(position);
+                    controller.updateGameBoard(position, '@'); //TODO:find a way to get from player class
+                    curShipCount++;
+                }
+                else {
+                    System.out.println("You've already placed a ship there. Try again");
+                }
+
             } else {
                 System.out.println("Invalid input, location outside the ocean, please try again.");
             }
