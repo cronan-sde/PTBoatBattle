@@ -1,84 +1,22 @@
 package com.vfw.users;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.Arrays;
 
 //TODO: implement HumanPlayer Class
-public class HumanPlayer extends Player{
-   private Scanner scan = new Scanner(System.in);
-   private List<String> playerPosition;
-
-   public List<String> getHumanPlayerPosition() {
-      return playerPosition;
-   }
-
-   public void playerPosition(ArrayList<String> humanPlayerPosition) {
-      this.playerPosition = playerPosition;
-   }
+public class HumanPlayer extends Player {
+   private char playerShip = '@';
+   private char playerHit = '!';
+   private char playerMiss = 'M';
 
    public HumanPlayer(String name) {
       super(name);
    }
 
-   @Override
-   public String setShips() {
-      String location = null;
-      boolean isValid = false;
-
-      while (!isValid) {
-         System.out.print("Enter the location to place the ship: ");
-         location = scan.nextLine().toUpperCase();
-
-         if (location.length() == 2) {
-            isValid = true;
-         }
-         else {
-            System.out.println(invalidFormat());
-         }
-      }
-
-      return location;
-   }
-
-   @Override
-   public String generateShot() {
-      String location = null;
-      boolean isValid = false;
-
-      while (!isValid) {
-         System.out.print("Enter the location you would like to shoot at: ");
-         location = scan.nextLine().toUpperCase();
-
-         if (location.length() == 2) {
-            isValid = true;
-         }
-         else {
-            System.out.println(invalidFormat());
-         }
-      }
-      return location;
-   }
-
-   @Override
-   public void setPlayerPosition(List<String> cpuPosition) {
-      this.playerPosition = playerPosition;
-   }
-
-   public List<String> getPlayerPosition() {
-      return playerPosition;
-   }
 
    @Override
    public String toString() {
       return "HumanPlayer{" +
-              "playerPosition=" + playerPosition +
+              "playerPosition=" + Arrays.toString(super.getShips().toArray()) +
               '}';
-   }
-
-   // returns message that user entered location in an invalid form
-   private String invalidFormat() {
-      return "Invalid Input - location must be in form of row letter + column number -" +
-              " e.g. A1, B2, D5 etc. Case Insensitive";
    }
 }
