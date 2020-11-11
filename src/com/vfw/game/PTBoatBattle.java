@@ -90,6 +90,7 @@ public class PTBoatBattle {
             doIt();
 
             if (!controller.gameOver()) {
+                System.out.println("\n Now the Computers shot:");
                 System.out.println(controller.takeTurns(controller.cpuTakeShot(), cpu));
                 doIt();
             }
@@ -113,7 +114,7 @@ public class PTBoatBattle {
             if (controller.isValidShot(shot, human)) {
                 isV = true;
             } else {
-                System.out.println("YOU WANT A DARWIN AWARD? YOU ALMOST SUNK YOUR OWN SHIP ");
+                System.out.println("YOU WANT A DARWIN AWARD?  ");
             }
         }
         return shot;
