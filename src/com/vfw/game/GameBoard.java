@@ -11,7 +11,7 @@ import java.util.TreeMap;
 class GameBoard {
     private char[][] board; // 2D game board
     private static final int SIZE = 10; // dimension of game board
-    // list of row identifiers
+
     private static final List<Character> ROW_IDENTIFIERS = new ArrayList<>(
             Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'));
 
@@ -19,7 +19,7 @@ class GameBoard {
     private final Map<String, Coordinates> stringCoords = new TreeMap<>();
 
 
-    //ctor to initialize board
+    // ctor to initialize board
     public GameBoard() {
         board = new char[SIZE][SIZE];
         setStringCoords();
@@ -54,7 +54,7 @@ class GameBoard {
         board[row][col] = symbol;
     }
 
-    //resets the games board
+    // resets the games board
     public void resetBoard() {
         for (String position : getStringCoords().keySet()) {
             int x = getStringCoords().get(position).x;

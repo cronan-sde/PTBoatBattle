@@ -11,11 +11,11 @@ import java.util.Random;
 
 class GameController {
 
-    //TESTING PURPOSES
+
     private GameBoard board;
     private Player human;
     private Player cpu;
-    private int shipCount = Player.BOAT_COUNT; // ship count
+    private int shipCount = Player.BOAT_COUNT;
 
     public GameController(GameBoard board, Player human, Player cpu) {
         this.board = board;
@@ -38,17 +38,14 @@ class GameController {
                 curShipCount++;
             }
         }
-        cpu.setShips(cpuPosition); // update cpu position field
+        cpu.setShips(cpuPosition); // updates cpu position field
     }
 
-    // Shot validated prior to entry
     public String takeTurns(String shot, Player player) {
-        // String winnerName = null;
-        //e.g. usage
+
         String message;
         String opponent = player instanceof CPUPlayer ? human.getName() : cpu.getName();
 
-        // if is valid shot, check hit
         if (isHit(shot,player)) {
             message = "HIT!!!! " + player.getName() + " just sunk " + opponent + "'s PTBoat at location " + shot;
             updateGameBoard(shot, player.getHitSymbol());
@@ -64,9 +61,6 @@ class GameController {
       return generateCPUCoordinate();
     }
 
-    //TODO: created this method in order to use and access the CPUPlayer's usedLocations List
-    // everything still works the exact same, but now we can use the usedLocations List to validate
-    // the CPU's shots, it contains its ship locations and every shot it takes
     public String generateCPUCoordinate() {
         String positionC = "";
         boolean isValid = false;
@@ -82,8 +76,8 @@ class GameController {
                 isValid = true;
             }
         }
-        // TODO remove prior to final product / used only for testing
-        System.out.println("CPU USEDLOCATIONS: " + Arrays.toString(cpuPlayer.getUsedLocations().toArray()));
+        // below is used only for testing
+       // System.out.println("CPU USEDLOCATIONS: " + Arrays.toString(cpuPlayer.getUsedLocations().toArray()));
         return positionC;
     }
 
@@ -108,7 +102,6 @@ class GameController {
         if (human.getShips().size() == 0 || cpu.getShips().size() == 0) {
             result = true;
         }
-
         return result;
     }
 
@@ -126,9 +119,7 @@ class GameController {
 
     public boolean isValidShot(String shot, Player player) {
         boolean isValid = false;
-
         HumanPlayer humanPlayer = (HumanPlayer) human;
-
 
         if(player.equals(human) && !humanPlayer.getUsedLocations().contains(shot)
                 && !player.getShips().contains(shot)
@@ -138,10 +129,10 @@ class GameController {
             isValid = true;
         }
         else {
-            System.out.println("That shot looks like a previous shot taken or is not on the board.");
+            System.out.println("That shot looks like a previous shot taken or is not on the board. Try Again.");
             isValid= false;
         }
-        return isValid; //placeholder for now
+        return isValid;
     }
 
     public void updateGameBoard(String position, char symbol) {
@@ -154,7 +145,7 @@ class GameController {
         char letter = ' ';
         Random rnd = new Random();
         for (int i = 0; i < shipCount; i++) {
-            char c = (char) ('A' + rnd.nextInt(10));
+            char c = (char) ('A' + rnd.nextInt(10)); // A-J
             letter = c;
         }
         return letter;
@@ -164,7 +155,7 @@ class GameController {
         char number = ' ';
         Random rnd = new Random();
         for (int i = 0; i < shipCount; i++) {
-            char n = (char) ('0' + rnd.nextInt(10));
+            char n = (char) ('0' + rnd.nextInt(10)); // 0-9
             number = n;
         }
         return number;
@@ -172,8 +163,10 @@ class GameController {
     public void resetGame(){
         human.getShips().clear();
         cpu.getShips().clear();
+
         CPUPlayer cpuPlayer = (CPUPlayer) cpu;
         cpuPlayer.getUsedLocations().clear();
+
         board.resetBoard(); //implement in GameBoard
     }
 }

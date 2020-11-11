@@ -8,4 +8,5 @@ public class PTBoatBattleClient {
         PTBoatBattle app = new PTBoatBattle();
         app.initializeGame();
     }
+    // for demonstration purposes; go to gameController and un-comment-out in generateCPUCoordinate the println before return to see computers locations or else game could take a while
 }

@@ -29,5 +29,6 @@ public class HumanPlayer extends Player {
       return MISS_SYMBOL;
    }
 
+   // prevents repeat shots in same coordinates
    public List<String> getUsedLocations(){ return usedLocations;}
 }
