@@ -1,7 +1,6 @@
 package com.vfw.game;
 
 import com.vfw.users.CPUPlayer;
-import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +10,6 @@ import java.util.Random;
 
 class GameController {
 
-    //TESTING PURPOSES
     private GameBoard board;
     private Player human;
     private Player cpu;
@@ -64,7 +62,7 @@ class GameController {
       return generateCPUCoordinate();
     }
 
-    //TODO: created this method in order to use and access the CPUPlayer's usedLocations List
+    //DONE: created this method in order to use and access the CPUPlayer's usedLocations List
     // everything still works the exact same, but now we can use the usedLocations List to validate
     // the CPU's shots, it contains its ship locations and every shot it takes
     public String generateCPUCoordinate() {

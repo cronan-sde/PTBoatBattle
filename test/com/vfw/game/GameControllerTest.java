@@ -116,7 +116,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void testIsValidUserShot_shouldReturnTrue_whenShotNotInShootingPlayersListAndNotOutsideBoard() {
+    public void testIsValidUserShot_shouldReturnTrue_whenShotNotOwnShipPreviousMissPreviousHitOrOutsideGame() {
         // human player ship locations "A1", "D5", "E8", "J9", "H4"
         // board boundaries A0-J9
         //place ships on board
@@ -140,11 +140,33 @@ public class GameControllerTest {
 
     @Test
     public void testIsValidUserShot_shouldReturnFalse_whenShotOutsideGameBoard() {
-        humanShips.forEach(position -> controller.updateGameBoard(position, human.getShipSymbol()));
         //Board boundaries A0-J9
         assertFalse(controller.isValidUserShot("A10"));//should return false
         assertFalse(controller.isValidUserShot("J10"));//should return false
         assertFalse(controller.isValidUserShot("K0"));//should return false
+    }
+
+    @Test
+    public void testIsValidUserShot_shouldReturnFalse_whenShotIsPreviousHit() {
+        // put human  hits on board to test
+        humanShips.forEach(position -> controller.updateGameBoard(position, human.getHitSymbol()));
+        //Board boundaries A0-J9
+        assertFalse(controller.isValidUserShot("A1"));
+        assertFalse(controller.isValidUserShot("D5"));
+        assertFalse(controller.isValidUserShot("E8"));
+        assertFalse(controller.isValidUserShot("J9"));
+        assertFalse(controller.isValidUserShot("H4"));
+    }
+
+    @Test
+    public void testIsValidUserShot_shouldReturnFalse_whenShotIsPreviousMiss() {
+        //put misses on board
+        humanShips.forEach(position -> controller.updateGameBoard(position, human.getMissSymbol()));
+        assertFalse(controller.isValidUserShot("A1"));
+        assertFalse(controller.isValidUserShot("D5"));
+        assertFalse(controller.isValidUserShot("E8"));
+        assertFalse(controller.isValidUserShot("J9"));
+        assertFalse(controller.isValidUserShot("H4"));
     }
 
     @Test
