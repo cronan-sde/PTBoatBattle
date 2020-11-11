@@ -54,6 +54,15 @@ class GameBoard {
         board[row][col] = symbol;
     }
 
+    //resets the games board
+    public void resetBoard() {
+        for (String position : getStringCoords().keySet()) {
+            int x = getStringCoords().get(position).x;
+            int y = getStringCoords().get(position).y;
+            updateBoard(x,y,Character.MIN_VALUE);
+        }
+    }
+
     public char[][] getBoard() {
         return board;
     }

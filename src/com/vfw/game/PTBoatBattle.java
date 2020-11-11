@@ -138,14 +138,15 @@ public class PTBoatBattle {
         showBoard();
         TimeUnit.SECONDS.sleep(3);
     }
+
     private void playAgain() throws InterruptedException {
         System.out.println(human.getName()+ "  would you like to play again?  If yes please enter 'Y'");
         System.out.println("Otherwise the game ends");
         String answer = sc.nextLine().toUpperCase();
         if(!answer.equals("Y")){
             System.out.println("Thanks for playing. Good-By");
-            return;
-        } else {
+        }
+        else {
             System.out.println("Welcome to a new round, lets reset your positions.");
             controller.resetGame();
             // after reset, player sent back to getPlayersPositions automatically.

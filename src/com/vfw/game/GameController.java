@@ -156,17 +156,10 @@ class GameController {
         return number;
     }
     public void resetGame(){
-       // List<String> empty = Collections.singletonList(" ");
         human.getShips().clear();
-       // human.setShips(empty);
-        //cpu.getShips().removeAll(empty);
         cpu.getShips().clear();
-       // cpuPlayer.setUsedLocations(empty);
-        // cpuPlayer.getUsedLocations().clear();
         CPUPlayer cpuPlayer = (CPUPlayer) cpu;
         cpuPlayer.getUsedLocations().clear();
-       // cpuPlayer.getUsedLocations().removeAll(empty);
-        board = new GameBoard();
-
+        board.resetBoard(); //implement in GameBoard
     }
 }
