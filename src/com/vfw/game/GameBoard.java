@@ -93,6 +93,4 @@ class GameBoard {
             return "[" + x + ", " + y + "]";
         }
     }
-
-
 }

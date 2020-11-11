@@ -1,12 +1,12 @@
 package com.vfw.users;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-//TODO: implement CPUPlayer class
 public class CPUPlayer extends Player{
-    private List<String> usedLocations; //keep track of all used coordinates for CPU
+    private List<String> usedLocations = new ArrayList<>(); //keep track of all used coordinates for CPU
     private static final char SHIP_SYMBOL = 'c';
     private static final char HIT_SYMBOL = 'X';
 
@@ -27,5 +27,9 @@ public class CPUPlayer extends Player{
     @Override
     public char getMissSymbol() {
         return Character.MIN_VALUE;
+    }
+
+    public List<String> getUsedLocations() {
+        return usedLocations;
     }
 }

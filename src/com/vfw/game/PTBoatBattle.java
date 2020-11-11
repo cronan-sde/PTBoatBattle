@@ -3,7 +3,6 @@ package com.vfw.game;
 import com.vfw.users.CPUPlayer;
 import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +10,11 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-
+/*
+ * TODO: We still need to get human players name at beginning of the game, we also need to prompt
+ *  if they would like to play again, if they choose to play again keep their name for the next game.
+ *  So potentially if they choose to play again, we just recall the playGame() method again?
+ */
 public class PTBoatBattle {
     private GameBoard board;
     private Player human;
@@ -44,48 +47,10 @@ public class PTBoatBattle {
 
     public void playGame() throws InterruptedException {
         // go to getPlayerPositions
-
         getPlayersPositions();
         showBoard();
         battle();
-
-
     }
-
-    private void battle() throws InterruptedException {
-
-        while (!controller.gameOver()) {
-
-            System.out.println(controller.takeTurns(getPlayerShot(), human));
-            doIt();
-
-            controller.takeTurns(controller.cpuTakeShot(),cpu) ;
-           doIt();
-
-        System.out.println(Arrays.toString(cpu.getShips().toArray()));
-        }
-        String winner =" ";
-        System.out.println( winner = controller.determineWinner());
-    }
-    private String getPlayerShot(){
-        String pS =" ";
-        boolean isV = false;
-        while(!isV) {
-            System.out.println("Take a shot by providing the coordinates as you did to place your boats: A-J & 0-9");
-             pS = sc.nextLine().toUpperCase();
-            if(controller.isValidShot(pS, human)){
-                isV= true;
-            } else {
-                System.out.println("YOU WANT A DARWIN AWARD? YOU ALMOST SUNK YOUR OWN SHIP ");
-            }
-        }
-        return pS;
-    }
-    private void doIt() throws InterruptedException {
-        showBoard();
-        TimeUnit.SECONDS.sleep(3);
-    }
-
 
     public void getPlayersPositions() {
         boardLocationInfo(); // give user info on how to enter board locations
@@ -100,7 +65,7 @@ public class PTBoatBattle {
             if (board.getStringCoords().containsKey(position)) { //validating location in game board
                 if (!playerPosition.contains(position)) {
                     playerPosition.add(position);
-                    controller.updateGameBoard(position, '@'); //TODO:find a way to get from player class
+                    controller.updateGameBoard(position, human.getShipSymbol());
                     curShipCount++;
                 } else {
                     System.out.println("You've already placed a ship there. Try again");
@@ -115,6 +80,43 @@ public class PTBoatBattle {
         controller.getCpuPosition(); //getting cpu positions
     }
 
+    private void battle() throws InterruptedException {
+        while (!controller.gameOver()) {
+            System.out.println(controller.takeTurns(getPlayerShot(), human));
+            doIt();
+
+            if (!controller.gameOver()) {
+                System.out.println(controller.takeTurns(controller.cpuTakeShot(), cpu));
+                doIt();
+            }
+
+            System.out.println(Arrays.toString(cpu.getShips().toArray()));
+        }
+
+        System.out.println(controller.determineWinner());
+    }
+
+
+    //TODO: potential issues when validating shot. If player shoots at an already sunk ship it will call it a miss
+    // and mark the previously sunk ship with an 'M'. We should catch this issue, we can still call it a miss, but
+    // maybe print a message saying miss, you already sunk that ship, and leave the '!' on the game board
+    private String getPlayerShot() {
+        String shot = " ";
+        boolean isV = false;
+
+        while (!isV) {
+            System.out.println("Take a shot by providing the coordinates as you did to place your boats: A-J & 0-9");
+            shot = sc.nextLine().toUpperCase();
+
+            if (controller.isValidShot(shot, human)) {
+                isV = true;
+            } else {
+                System.out.println("YOU WANT A DARWIN AWARD? YOU ALMOST SUNK YOUR OWN SHIP ");
+            }
+        }
+        return shot;
+    }
+
     private void showBoard() {
         board.printBoard();
     }
@@ -125,5 +127,10 @@ public class PTBoatBattle {
         System.out.println("Please do not use extra spaces or characters.");
         System.out.println("A valid example is like this :  a3   or   A6 ");
         System.out.println("Remember valid letters are a-j & valid numbers are 0-9");
+    }
+
+    private void doIt() throws InterruptedException {
+        showBoard();
+        TimeUnit.SECONDS.sleep(3);
     }
 }

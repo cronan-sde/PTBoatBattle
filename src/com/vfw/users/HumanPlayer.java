@@ -1,7 +1,6 @@
 package com.vfw.users;
 
 
-//TODO: implement HumanPlayer Class
 public class HumanPlayer extends Player {
    private static final char SHIP_SYMBOL = '@';
    private static final char HIT_SYMBOL = '!';
