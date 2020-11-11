@@ -32,4 +32,6 @@ public class CPUPlayer extends Player{
     public List<String> getUsedLocations() {
         return usedLocations;
     }
+
+
 }

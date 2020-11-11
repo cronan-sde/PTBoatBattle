@@ -3,11 +3,8 @@ package com.vfw.game;
 import com.vfw.users.CPUPlayer;
 import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -25,24 +22,35 @@ public class PTBoatBattle {
 
     public PTBoatBattle() {
         board = new GameBoard();
-        human = new HumanPlayer("dude");
+        human = new HumanPlayer("Human Player");
         cpu = new CPUPlayer();
         controller = new GameController(board, human, cpu);
     }
 
     public void initializeGame() throws InterruptedException {
-        // new SayHello(); // calls popup that welcomes & gets user name
-        System.out.println("Welcome to PT Boat Battle ");
+        hello();
+        System.out.println("Welcome to PT Boat Battle "+ human.getName());
         System.out.println("You and the computer will be given 5 boats to place on the board");
         System.out.println("This is followed by taking shots at each other to sink the others boats");
         System.out.println("Winner is decided when the Victor sinks all the opponents boats");
         System.out.println("Here is what the board looks like");
         showBoard();
         TimeUnit.SECONDS.sleep(5);
-        // tell instructions
 
         controller = new GameController(board, human, cpu);
         playGame();
+    }
+    public boolean hello(){
+        boolean isReady = false;
+        System.out.println("Hello New Player");
+        System.out.println("Welcome To PT Boat Battle.");
+        System.out.println("Lets Start the Game By Getting your name.");
+        System.out.println("Please enter your name and hit your return key");
+        String name = sc.nextLine();
+        human = new HumanPlayer(name);
+
+        isReady = true;
+        return isReady;
     }
 
     public void playGame() throws InterruptedException {
@@ -62,7 +70,7 @@ public class PTBoatBattle {
             System.out.println("Enter the 'X' coordinate followed by the 'Y' coordinate");
             String position = sc.nextLine().toUpperCase();
 
-            if (board.getStringCoords().containsKey(position)) { //validating location in game board
+            if (board.getStringCoords().containsKey(position)) { //validates location in game board
                 if (!playerPosition.contains(position)) {
                     playerPosition.add(position);
                     controller.updateGameBoard(position, human.getShipSymbol());
@@ -70,14 +78,13 @@ public class PTBoatBattle {
                 } else {
                     System.out.println("You've already placed a ship there. Try again");
                 }
-
             } else {
                 System.out.println("Invalid input, location outside the ocean, please try again.");
             }
         }
         human.setShips(playerPosition); //setting positions in Players field
         System.out.println("Your valid positions are : " + Arrays.toString(human.getShips().toArray()));
-        controller.getCpuPosition(); //getting cpu positions
+        controller.getCpuPosition(); //gets the cpu positions
     }
 
     private void battle() throws InterruptedException {
@@ -89,13 +96,11 @@ public class PTBoatBattle {
                 System.out.println(controller.takeTurns(controller.cpuTakeShot(), cpu));
                 doIt();
             }
-
             System.out.println(Arrays.toString(cpu.getShips().toArray()));
         }
-
         System.out.println(controller.determineWinner());
+        playAgain();
     }
-
 
     //TODO: potential issues when validating shot. If player shoots at an already sunk ship it will call it a miss
     // and mark the previously sunk ship with an 'M'. We should catch this issue, we can still call it a miss, but
@@ -133,4 +138,19 @@ public class PTBoatBattle {
         showBoard();
         TimeUnit.SECONDS.sleep(3);
     }
+    private void playAgain() throws InterruptedException {
+        System.out.println(human.getName()+ "  would you like to play again?  If yes please enter 'Y'");
+        System.out.println("Otherwise the game ends");
+        String answer = sc.nextLine().toUpperCase();
+        if(!answer.equals("Y")){
+            System.out.println("Thanks for playing. Good-By");
+            return;
+        } else {
+            System.out.println("Welcome to a new round, lets reset your positions.");
+            controller.resetGame();
+            // after reset, player sent back to getPlayersPositions automatically.
+            playGame();
+        }
+    }
+
 }
