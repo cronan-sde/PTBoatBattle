@@ -1,6 +1,8 @@
 package com.vfw.users;
 
 
+import java.util.List;
+
 public class HumanPlayer extends Player {
    private static final char SHIP_SYMBOL = '@';
    private static final char HIT_SYMBOL = '!';
@@ -24,4 +26,6 @@ public class HumanPlayer extends Player {
    public char getMissSymbol() {
       return MISS_SYMBOL;
    }
+
+
 }

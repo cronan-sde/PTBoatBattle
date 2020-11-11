@@ -2,10 +2,8 @@ package com.vfw.game;
 
 import com.vfw.users.CPUPlayer;
 import com.vfw.users.Player;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+
+import java.util.*;
 
 class GameController {
 
@@ -13,7 +11,9 @@ class GameController {
     private GameBoard board;
     private Player human;
     private Player cpu;
+
     private int shipCount = Player.BOAT_COUNT; // ship count
+   private int initialCapicity= 2;
 
     public GameController(GameBoard board, Player human, Player cpu) {
         this.board = board;
@@ -22,7 +22,7 @@ class GameController {
     }
 
     public void getCpuPosition() {
-        List<String> cpuPosition = new ArrayList<>(5);
+        List<String> cpuPosition = new ArrayList<>(initialCapicity);
         String positionC = "";
         int curShipCount = 1;
 
@@ -154,5 +154,19 @@ class GameController {
             number = n;
         }
         return number;
+    }
+    public void resetGame(){
+       // List<String> empty = Collections.singletonList(" ");
+        human.getShips().clear();
+       // human.setShips(empty);
+        //cpu.getShips().removeAll(empty);
+        cpu.getShips().clear();
+       // cpuPlayer.setUsedLocations(empty);
+        // cpuPlayer.getUsedLocations().clear();
+        CPUPlayer cpuPlayer = (CPUPlayer) cpu;
+        cpuPlayer.getUsedLocations().clear();
+       // cpuPlayer.getUsedLocations().removeAll(empty);
+        board = new GameBoard();
+
     }
 }
