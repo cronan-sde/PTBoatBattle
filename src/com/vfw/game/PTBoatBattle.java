@@ -25,7 +25,7 @@ public class PTBoatBattle {
     }
 
     public void initializeGame() throws InterruptedException {
-        hello();
+        hello(); // gets name of player
         System.out.println("Welcome to PT Boat Battle "+ human.getName());
         System.out.println("You and the computer will be given 5 boats to place on the board");
         System.out.println("This is followed by taking shots at each other to sink the others boats");
@@ -33,7 +33,6 @@ public class PTBoatBattle {
         System.out.println("Here is what the board looks like");
         showBoard();
         TimeUnit.SECONDS.sleep(5);
-
         controller = new GameController(board, human, cpu);
         playGame();
     }
@@ -45,16 +44,18 @@ public class PTBoatBattle {
         System.out.println("Please enter your name and hit your return key");
         String name = sc.nextLine();
         human = new HumanPlayer(name);
-
         isReady = true;
         return isReady;
     }
 
     public void playGame() throws InterruptedException {
-        // go to getPlayerPositions
         getPlayersPositions();
         showBoard();
         battle();
+    }
+
+    private void showBoard() {
+        board.printBoard();
     }
 
     public void getPlayersPositions() {
@@ -101,7 +102,8 @@ public class PTBoatBattle {
     }
 
 
-    public String getPlayerShot() {
+    private String getPlayerShot() {
+
         String shot = " ";
         boolean isV = false;
 
@@ -116,9 +118,6 @@ public class PTBoatBattle {
         return shot;
     }
 
-    private void showBoard() {
-        board.printBoard();
-    }
 
     public void boardLocationInfo() {
         System.out.println("\n\n");
@@ -139,12 +138,12 @@ public class PTBoatBattle {
         String answer = sc.nextLine().toUpperCase();
         if(!answer.equals("Y")){
             System.out.println("Thanks for playing. Good-By");
+            return;
         }
         else {
             System.out.println("Welcome to a new round, lets reset your positions.");
             controller.resetGame();
-            // after reset, player sent back to getPlayersPositions automatically.
-            playGame();
+            playGame(); // start again
         }
     }
 
