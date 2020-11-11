@@ -29,6 +29,7 @@ public class CPUPlayer extends Player{
         return Character.MIN_VALUE;
     }
 
+    // prevents repeat shots in same coordinates
     public List<String> getUsedLocations() {
         return usedLocations;
     }

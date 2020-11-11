@@ -4,10 +4,10 @@ import java.util.List;
 
 public abstract class Player {
     private String name;
-    public static final int BOAT_COUNT = 5; // Ships will be 5 each player
+    public static final int BOAT_COUNT = 5; // Ships will be 5 for each player
     private List<String> playerPosition; //list of players ships positions
 
-    //ctor for CPUPlayer
+    // ctor for CPUPlayer
     public Player() {
         this.name = "CPU";
     }
