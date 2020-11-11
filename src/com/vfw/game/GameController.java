@@ -160,7 +160,7 @@ class GameController {
         if (curBoardSymbol == human.getShipSymbol()) {
             message = "You're trying to shoot at your own ship! Please adjust fire.";
         }
-<
+
         if (curBoardSymbol == human.getMissSymbol()) {
             message = "You've already tried that position, do you really want to miss again? Please try again.";
         }
