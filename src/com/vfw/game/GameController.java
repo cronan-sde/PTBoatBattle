@@ -1,9 +1,13 @@
 package com.vfw.game;
 
 import com.vfw.users.CPUPlayer;
+import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-import java.util.*;
 
 class GameController {
 
@@ -11,9 +15,7 @@ class GameController {
     private GameBoard board;
     private Player human;
     private Player cpu;
-
     private int shipCount = Player.BOAT_COUNT; // ship count
-   private int initialCapicity= 2;
 
     public GameController(GameBoard board, Player human, Player cpu) {
         this.board = board;
@@ -22,7 +24,7 @@ class GameController {
     }
 
     public void getCpuPosition() {
-        List<String> cpuPosition = new ArrayList<>(initialCapicity);
+        List<String> cpuPosition = new ArrayList<>(shipCount);
         String positionC = "";
         int curShipCount = 1;
 
@@ -80,6 +82,7 @@ class GameController {
                 isValid = true;
             }
         }
+        // TODO remove prior to final product / used only for testing
         System.out.println("CPU USEDLOCATIONS: " + Arrays.toString(cpuPlayer.getUsedLocations().toArray()));
         return positionC;
     }
@@ -124,8 +127,19 @@ class GameController {
     public boolean isValidShot(String shot, Player player) {
         boolean isValid = false;
 
-        if(!player.getShips().contains(shot) && board.getStringCoords().containsKey(shot)){
+        HumanPlayer humanPlayer = (HumanPlayer) human;
+
+
+        if(player.equals(human) && !humanPlayer.getUsedLocations().contains(shot)
+                && !player.getShips().contains(shot)
+                && board.getStringCoords().containsKey(shot)){
+
+            humanPlayer.getUsedLocations().add(shot);
             isValid = true;
+        }
+        else {
+            System.out.println("That shot looks like a previous shot taken or is not on the board.");
+            isValid= false;
         }
         return isValid; //placeholder for now
     }
