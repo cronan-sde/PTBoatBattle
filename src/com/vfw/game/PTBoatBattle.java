@@ -9,11 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-/*
- * TODO: We still need to get human players name at beginning of the game, we also need to prompt
- *  if they would like to play again, if they choose to play again keep their name for the next game.
- *  So potentially if they choose to play again, we just recall the playGame() method again?
- */
+
 public class PTBoatBattle {
     private GameBoard board;
     private Player human;
@@ -94,6 +90,7 @@ public class PTBoatBattle {
             doIt();
 
             if (!controller.gameOver()) {
+                System.out.println("\n Now the Computers shot:");
                 System.out.println(controller.takeTurns(controller.cpuTakeShot(), cpu));
                 doIt();
             }
@@ -117,7 +114,7 @@ public class PTBoatBattle {
             if (controller.isValidShot(shot, human)) {
                 isV = true;
             } else {
-                System.out.println("YOU WANT A DARWIN AWARD? YOU ALMOST SUNK YOUR OWN SHIP ");
+                System.out.println("YOU WANT A DARWIN AWARD?  ");
             }
         }
         return shot;
@@ -137,7 +134,7 @@ public class PTBoatBattle {
 
     private void doIt() throws InterruptedException {
         showBoard();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(1);
     }
 
     private void playAgain() throws InterruptedException {
