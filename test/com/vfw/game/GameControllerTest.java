@@ -5,9 +5,6 @@ import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -128,14 +125,44 @@ public class GameControllerTest {
     }
 
     @Test
-    public void updateGameBoard() {
+    public void testIsValidShot_shouldReturnFalse_whenShotIsInPlayersShipList() {
+        // human player ship locations "A1", "D5", "E8", "J9", "H4"
+        //all should return false
+        assertFalse(controller.isValidShot("A1", human));
+        assertFalse(controller.isValidShot("D5", human));
+        assertFalse(controller.isValidShot("E8", human));
+        assertFalse(controller.isValidShot("J9", human));
+        assertFalse(controller.isValidShot("H4", human));
     }
 
     @Test
-    public void randomLetter() {
+    public void testIsValidShot_shouldReturnFalse_whenShotOutsideGameBoard() {
+        //Board boundaries A0-J9
+        assertFalse(controller.isValidShot("A10", human));//should return false
+        assertFalse(controller.isValidShot("J10", human));//should return false
+        assertFalse(controller.isValidShot("K0", human));//should return false
     }
 
     @Test
-    public void randomNumber() {
+    public void testUpdateGameBoard_shouldUpdateXYPositionOnBoardWithCPUPlayerSymbols_whenPassedCPUPositions() {
+        //manually place CPU positions at ship at "B3" [1,3] = 'c' hit at "A2" [0,2] = 'X' "A0" [0,0] = ''
+        controller.updateGameBoard("B3", cpu.getShipSymbol());
+        assertEquals('c', board.getBoard()[1][3]); //should return true
+        controller.updateGameBoard("A2", cpu.getHitSymbol());
+        assertEquals('X', board.getBoard()[0][2]); //should return true
+        controller.updateGameBoard("A0", cpu.getMissSymbol());
+        assertEquals(Character.MIN_VALUE, board.getBoard()[0][0]); //should return true
+    }
+
+    @Test
+    public void testUpdateGameBoard_shouldUpdateXYPositionOnBoardWithHumanPlayerSymbols_whenPassedHumanPositions() {
+        //manually place human shots, misses and ensure location on board is updated with proper symbol
+        // "C2" - [2,2] = @, "G4" - [6,4] = '!' hit, "E1" - [4,1] = 'M' miss
+        controller.updateGameBoard("C2", human.getShipSymbol());
+        assertEquals('@', board.getBoard()[2][2]);
+        controller.updateGameBoard("G4", human.getHitSymbol());
+        assertEquals('!', board.getBoard()[6][4]);
+        controller.updateGameBoard("E1", human.getMissSymbol());
+        assertEquals('M', board.getBoard()[4][1]);
     }
 }

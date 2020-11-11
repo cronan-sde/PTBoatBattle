@@ -3,8 +3,10 @@ package com.vfw.game;
 import com.vfw.users.CPUPlayer;
 import com.vfw.users.HumanPlayer;
 import com.vfw.users.Player;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
@@ -13,7 +15,6 @@ public class PTBoatBattle {
     private Player human;
     private Player cpu;
     private GameController controller;
-    private Random rnd = new Random();
     private Scanner sc = new Scanner(System.in);
 
     public PTBoatBattle() {
