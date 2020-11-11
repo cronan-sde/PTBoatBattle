@@ -100,10 +100,8 @@ public class PTBoatBattle {
         playAgain();
     }
 
-    //TODO: potential issues when validating shot. If player shoots at an already sunk ship it will call it a miss
-    // and mark the previously sunk ship with an 'M'. We should catch this issue, we can still call it a miss, but
-    // maybe print a message saying miss, you already sunk that ship, and leave the '!' on the game board
-    private String getPlayerShot() {
+
+    public String getPlayerShot() {
         String shot = " ";
         boolean isV = false;
 
@@ -111,10 +109,8 @@ public class PTBoatBattle {
             System.out.println("Take a shot by providing the coordinates as you did to place your boats: A-J & 0-9");
             shot = sc.nextLine().toUpperCase();
 
-            if (controller.isValidShot(shot, human)) {
+            if (controller.isValidUserShot(shot)) {
                 isV = true;
-            } else {
-                System.out.println("YOU WANT A DARWIN AWARD?  ");
             }
         }
         return shot;
