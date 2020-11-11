@@ -116,31 +116,57 @@ public class GameControllerTest {
     }
 
     @Test
-    public void testIsValidShot_shouldReturnTrue_whenShotNotInShootingPlayersListAndNotOutsideBoard() {
+    public void testIsValidUserShot_shouldReturnTrue_whenShotNotOwnShipPreviousMissPreviousHitOrOutsideGame() {
         // human player ship locations "A1", "D5", "E8", "J9", "H4"
         // board boundaries A0-J9
-        assertTrue(controller.isValidShot("A0", human)); //should return true
-        assertTrue(controller.isValidShot("J8", human)); //should return true
-        assertTrue(controller.isValidShot("D6", human)); //should return true
+        //place ships on board
+        humanShips.forEach(position -> controller.updateGameBoard(position, human.getShipSymbol()));
+        assertTrue(controller.isValidUserShot("A0")); //should return true
+        assertTrue(controller.isValidUserShot("J8")); //should return true
+        assertTrue(controller.isValidUserShot("D6")); //should return true
     }
 
     @Test
-    public void testIsValidShot_shouldReturnFalse_whenShotIsInPlayersShipList() {
+    public void testIsValidUserShot_shouldReturnFalse_whenShotIsInPlayersShipList() {
         // human player ship locations "A1", "D5", "E8", "J9", "H4"
+        humanShips.forEach(position -> controller.updateGameBoard(position, human.getShipSymbol()));
         //all should return false
-        assertFalse(controller.isValidShot("A1", human));
-        assertFalse(controller.isValidShot("D5", human));
-        assertFalse(controller.isValidShot("E8", human));
-        assertFalse(controller.isValidShot("J9", human));
-        assertFalse(controller.isValidShot("H4", human));
+        assertFalse(controller.isValidUserShot("A1"));
+        assertFalse(controller.isValidUserShot("D5"));
+        assertFalse(controller.isValidUserShot("E8"));
+        assertFalse(controller.isValidUserShot("J9"));
+        assertFalse(controller.isValidUserShot("H4"));
     }
 
     @Test
-    public void testIsValidShot_shouldReturnFalse_whenShotOutsideGameBoard() {
+    public void testIsValidUserShot_shouldReturnFalse_whenShotOutsideGameBoard() {
         //Board boundaries A0-J9
-        assertFalse(controller.isValidShot("A10", human));//should return false
-        assertFalse(controller.isValidShot("J10", human));//should return false
-        assertFalse(controller.isValidShot("K0", human));//should return false
+        assertFalse(controller.isValidUserShot("A10"));//should return false
+        assertFalse(controller.isValidUserShot("J10"));//should return false
+        assertFalse(controller.isValidUserShot("K0"));//should return false
+    }
+
+    @Test
+    public void testIsValidUserShot_shouldReturnFalse_whenShotIsPreviousHit() {
+        // put human  hits on board to test
+        humanShips.forEach(position -> controller.updateGameBoard(position, human.getHitSymbol()));
+        //Board boundaries A0-J9
+        assertFalse(controller.isValidUserShot("A1"));
+        assertFalse(controller.isValidUserShot("D5"));
+        assertFalse(controller.isValidUserShot("E8"));
+        assertFalse(controller.isValidUserShot("J9"));
+        assertFalse(controller.isValidUserShot("H4"));
+    }
+
+    @Test
+    public void testIsValidUserShot_shouldReturnFalse_whenShotIsPreviousMiss() {
+        //put misses on board
+        humanShips.forEach(position -> controller.updateGameBoard(position, human.getMissSymbol()));
+        assertFalse(controller.isValidUserShot("A1"));
+        assertFalse(controller.isValidUserShot("D5"));
+        assertFalse(controller.isValidUserShot("E8"));
+        assertFalse(controller.isValidUserShot("J9"));
+        assertFalse(controller.isValidUserShot("H4"));
     }
 
     @Test

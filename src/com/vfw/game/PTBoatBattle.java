@@ -103,6 +103,7 @@ public class PTBoatBattle {
 
 
     private String getPlayerShot() {
+
         String shot = " ";
         boolean isV = false;
 
@@ -110,10 +111,8 @@ public class PTBoatBattle {
             System.out.println("Take a shot by providing the coordinates as you did to place your boats: A-J & 0-9");
             shot = sc.nextLine().toUpperCase();
 
-            if (controller.isValidShot(shot, human)) {
+            if (controller.isValidUserShot(shot)) {
                 isV = true;
-            } else {
-                System.out.println("YOU WANT A DARWIN AWARD?  ");
             }
         }
         return shot;
