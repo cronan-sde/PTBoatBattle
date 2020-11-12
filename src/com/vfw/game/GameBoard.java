@@ -37,7 +37,7 @@ class GameBoard {
             for (int j = 0; j < board[i].length; j++) {
                 // checking for ships, hits, and misses to update
 
-                if (board[i][j] == '@' || board[i][j] == '!' || board[i][j] == 'X' || board[i][j] == 'M') {
+                if (board[i][j] == '@' || board[i][j] == '#' || board[i][j] == 'X' || board[i][j] == 'M') {
                     System.out.printf("%7s", board[i][j]);
                 }
                 else {
