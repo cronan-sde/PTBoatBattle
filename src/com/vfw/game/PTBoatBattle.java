@@ -54,10 +54,6 @@ public class PTBoatBattle {
         battle();
     }
 
-    private void showBoard() {
-        board.printBoard();
-    }
-
     public void getPlayersPositions() {
         boardLocationInfo(); // give user info on how to enter board locations
 
@@ -130,6 +126,10 @@ public class PTBoatBattle {
     private void doIt() throws InterruptedException {
         showBoard();
         TimeUnit.SECONDS.sleep(1);
+    }
+
+    private void showBoard() {
+        board.printBoard();
     }
 
     private void playAgain() throws InterruptedException {

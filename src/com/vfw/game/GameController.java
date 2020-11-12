@@ -98,27 +98,6 @@ class GameController {
         return result;
     }
 
-    public boolean gameOver() {
-        boolean result = false;
-
-        if (human.getShips().size() == 0 || cpu.getShips().size() == 0) {
-            result = true;
-        }
-        return result;
-    }
-
-    public String determineWinner() {
-        String winner = "";
-
-        if (human.getShips().size() == 0){
-            winner = "Game Over!\n" + cpu.getName() + " has sunk all of " + human.getName() + "'s ships";
-        }
-        else {
-            winner = "Congratulations " + human.getName() + " you have sunk all of " + cpu.getName() + "'s ships";
-        }
-        return winner;
-    }
-
     /*
      * Validates the users chosen shot, if the location of the shot is not their own ship,
      * a previous miss, a previous hit, or outside the game board the method will return true
@@ -148,6 +127,27 @@ class GameController {
         }
         System.out.println(message); //send feedback to user
         return isValid;
+    }
+
+    public boolean gameOver() {
+        boolean result = false;
+
+        if (human.getShips().size() == 0 || cpu.getShips().size() == 0) {
+            result = true;
+        }
+        return result;
+    }
+
+    public String determineWinner() {
+        String winner = "";
+
+        if (human.getShips().size() == 0){
+            winner = "Game Over!\n" + cpu.getName() + " has sunk all of " + human.getName() + "'s ships";
+        }
+        else {
+            winner = "Congratulations " + human.getName() + " you have sunk all of " + cpu.getName() + "'s ships";
+        }
+        return winner;
     }
 
     /*
