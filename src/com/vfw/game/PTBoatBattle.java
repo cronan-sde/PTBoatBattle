@@ -84,13 +84,14 @@ public class PTBoatBattle {
     private void battle() throws InterruptedException {
         while (!controller.gameOver()) {
             System.out.println(controller.takeTurns(getPlayerShot(), human));
-            doIt();
+//            doIt();
 
             if (!controller.gameOver()) {
-                System.out.println("\n Now the Computers shot:");
+                System.out.println("\nComputer firing back...");
                 System.out.println(controller.takeTurns(controller.cpuTakeShot(), cpu));
-                doIt();
+//                doIt();
             }
+            doIt();
             System.out.println(Arrays.toString(cpu.getShips().toArray()));
         }
         System.out.println(controller.determineWinner());
