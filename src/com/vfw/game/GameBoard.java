@@ -8,10 +8,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Stores and keeps track of {@code Player} boats, hits and misses.
+ * Used by {@code GameController} to validate {@code Player} inputs.
+ *
+ * @author Cody Cronberger
+ * @version 1.0
+ */
 class GameBoard {
     private char[][] board; // 2D game board
     private static final int SIZE = 10; // dimension of game board
-
     private static final List<Character> ROW_IDENTIFIERS = new ArrayList<>(
             Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'));
 
@@ -25,10 +31,13 @@ class GameBoard {
         setStringCoords();
     }
 
-    // Methods to print and update board
-    // Symbols to represent board characters
-    // '@' = HumanPlayer ships, '~' = water, 'M' = miss, '!' = sunk CPU ship, 'X' = sunk human ship
-    // 'c' = cpu ship - c will be hidden by a '~'
+    /**
+     * Prints the current state of the board. Symbols to represent board characters
+     * '@' = HumanPlayer ships, '~' = water, 'M' = miss, '#' = sunk CPU ship, 'X' = sunk human ship
+     * 'c' = cpu ship
+     * cpu ships will not be shown when printBoard() called
+     * @return void - prints visual representation to console
+    */
     public void printBoard() {
         System.out.println("        0      1      2      3      4      5      6      7      8      9");
         for (int i = 0; i < board.length; i++) {
@@ -47,14 +56,21 @@ class GameBoard {
             System.out.println();
         }
     }
-    // Symbols to represent board characters
-    // '@' = HumanPlayer ships, '~' = water, 'M' = miss, '!' = sunk CPU ship, 'X' = sunk human ship
-    // 'c' = cpu ship - c will be hidden by a '~'
+
+    /**
+     * Updates the game board to reflect current state of the game.
+     * @param row - int specifying the row in the 2d board.
+     * @param col - int specifying the column in the 2d board.
+     * @param symbol - char representing a {@code Player} miss, hit or ship.
+     */
     public void updateBoard(int row, int col, char symbol) {
         board[row][col] = symbol;
     }
 
-    // resets the games board
+    /**
+     * Resets the game board back to its original state.
+     * {@link GameController#resetGame()}
+     */
     public void resetBoard() {
         for (String position : getStringCoords().keySet()) {
             int x = getStringCoords().get(position).x;
@@ -71,6 +87,10 @@ class GameBoard {
         return Collections.unmodifiableMap(stringCoords);
     }
 
+    /*
+     * Maps all unique String locations e.g. "A1", "C5", "H8" to
+     * their corresponding Coordinates e.g. "A0" -> 0,0
+     */
     private void setStringCoords() {
         StringBuilder sb = new StringBuilder();
 
@@ -85,8 +105,9 @@ class GameBoard {
         }
     }
 
-    /*
+    /**
      * Inner class to help map String keys "A0"-"J9" to an x,y coordinate value
+     * used by {@code GameBoard} for easier manipulation of the game board.
      */
     class Coordinates {
         int x;

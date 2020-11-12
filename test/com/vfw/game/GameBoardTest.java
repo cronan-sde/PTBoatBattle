@@ -15,7 +15,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void testUpdateGameBoard_shouldVisuallyAddCharsInProperLocation() {
+    public void testUpdateGameBoard_shouldAddCharsInProperLocation() {
         board.updateBoard(0,0, '@');
         board.updateBoard(2,2, 'M');
         board.updateBoard(3,6, '!');
@@ -23,7 +23,32 @@ public class GameBoardTest {
         board.updateBoard(9,9, 'c');
         //visually inspect A0 = @, C2 = M, D6 = !, H3 = X
         // J9 = ~ the c should remain hidden
-        board.printBoard();
+        assertEquals('@', board.getBoard()[0][0]);
+        assertEquals('M', board.getBoard()[2][2]);
+        assertEquals('!', board.getBoard()[3][6]);
+        assertEquals('X', board.getBoard()[7][3]);
+        assertEquals('c', board.getBoard()[9][9]);
+    }
+
+    @Test
+    public void testResetBoard_shouldReturnBoardToItsOriginalState() {
+        //adding to the board
+        board.updateBoard(0,0, '@');
+        board.updateBoard(2,2, 'M');
+        board.updateBoard(3,6, '!');
+        board.updateBoard(7,3, 'X');
+        board.updateBoard(9,9, 'c');
+
+        //reset board
+        board.resetBoard();
+
+        char[][] shouldBeEmpty = board.getBoard(); //board should be reset to original state
+
+        for (int i = 0; i < shouldBeEmpty.length; i++) {
+            for (int j = 0; j < shouldBeEmpty[i].length; j++) {
+                assertEquals(Character.MIN_VALUE, shouldBeEmpty[i][j]); //each space should be empty
+            }
+        }
     }
 
     @Test

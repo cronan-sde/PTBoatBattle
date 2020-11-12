@@ -135,8 +135,7 @@ public class PTBoatBattle {
         System.out.println("Otherwise the game ends");
         String answer = sc.nextLine().toUpperCase();
         if(!answer.equals("Y")){
-            System.out.println("Thanks for playing. Good-By");
-            return;
+            System.out.println("Thanks for playing. Good-Bye");
         }
         else {
             System.out.println("Welcome to a new round, lets reset your positions.");
