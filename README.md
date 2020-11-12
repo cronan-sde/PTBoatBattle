@@ -20,6 +20,11 @@ and places its pieces.
 - It is also designed to ensure a shot fired is not a duplicate of  previously taken shots.
 - The game ends when one of the opponets has no more pieces on the gameboard.
 
-
+#### Symbology used
+- '~' tilde / represents open water
+- 'M' capital M / miss by user
+- 'X' capital X / sunk ship
+- '@' at symbol / human ship
+- '#' pound / sunk computer ship
 
 
